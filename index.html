@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Protocolo CSS · Módulo 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ===== Secuencia de arranque ===== -->
+  <div id="boot" aria-hidden="true">
+    <div class="boot-box">
+      <pre id="bootLog"></pre>
+      <div class="boot-bar"><span id="bootFill"></span></div>
+      <div class="boot-pct"><span id="bootPct">0</span>%</div>
+    </div>
+  </div>
+
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="reticle" aria-hidden="true"><i></i><b></b></div>
+
+  <div class="hud-tl" aria-hidden="true"><span class="dot"></span> SYS.CSS // MÓDULO 02</div>
+  <div class="hud-bl" aria-hidden="true">X <span id="hx">0000</span> · Y <span id="hy">0000</span> · SCROLL <span id="hs">0</span>%</div>
+
+  <nav class="rail" aria-label="Módulos">
+    <div class="gauge" id="gauge"><span id="gaugeNum">0</span></div>
+    <a href="#m21" data-m="m21"><b>2.1</b><em>Sintaxis</em></a>
+    <a href="#m22" data-m="m22"><b>2.2</b><em>Incorporación</em></a>
+    <a href="#m23" data-m="m23"><b>2.3</b><em>Herencia</em></a>
+    <a href="#m24" data-m="m24"><b>2.4</b><em>Especificidad</em></a>
+    <a href="#m25" data-m="m25"><b>2.5</b><em>Flex / Grid</em></a>
+    <a href="#m26" data-m="m26"><b>2.6</b><em>Media queries</em></a>
+    <a href="#m27" data-m="m27"><b>2.7</b><em>Pseudo-elementos</em></a>
+    <a href="#m28" data-m="m28"><b>2.8</b><em>Pseudo-clases</em></a>
+    <a href="#m29" data-m="m29"><b>2.9</b><em>Z-index</em></a>
+  </nav>
+
+  <!-- ===== PORTADA ===== -->
+  <header class="hero" id="inicio">
+    <div class="h-layer h-glow"></div>
+    <div class="h-layer h-hex" data-depth="0.5"></div>
+    <div class="h-floor-wrap"><div class="h-floor"></div></div>
+    <div class="h-layer h-particles" id="particles" data-depth="0.35"></div>
+
+    <div class="core" data-depth="0.22">
+      <i class="ring r1"></i><i class="ring r2"></i><i class="ring r3"></i><i class="ring r4"></i><i class="core-heart"></i>
+    </div>
+
+    <div class="h-corner tl"><span>PWR 100%</span><span>SYS ONLINE</span></div>
+    <div class="h-corner tr"><span>LAT 04.71 N</span><span>LON 74.07 W</span></div>
+
+    <div class="h-text" data-depth="-0.2">
+      <p class="eyebrow">Módulo 02 · Hojas de estilo en cascada</p>
+      <h1 class="glitch" data-text="CSS">CSS</h1>
+      <p class="sub">Protocolo de estilos: sintaxis, especificidad, diseño responsivo y capas.</p>
+    </div>
+
+    <a href="#m21" class="cue"><span>iniciar secuencia</span><i></i></a>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-in">
+        <span>2.1 SINTAXIS</span><span>2.2 INCORPORACIÓN</span><span>2.3 HERENCIA</span><span>2.4 ESPECIFICIDAD</span><span>2.5 FLEX · GRID</span><span>2.6 MEDIA QUERIES</span><span>2.7 PSEUDO-ELEMENTOS</span><span>2.8 PSEUDO-CLASES</span><span>2.9 Z-INDEX</span>
+        <span>2.1 SINTAXIS</span><span>2.2 INCORPORACIÓN</span><span>2.3 HERENCIA</span><span>2.4 ESPECIFICIDAD</span><span>2.5 FLEX · GRID</span><span>2.6 MEDIA QUERIES</span><span>2.7 PSEUDO-ELEMENTOS</span><span>2.8 PSEUDO-CLASES</span><span>2.9 Z-INDEX</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- =============== 2.1 =============== -->
+    <section class="mod" id="m21">
+      <div class="bg-num" data-speed="0.18">2.1</div>
+      <div class="wrap">
+        <header class="mod-head reveal">
+          <span class="tag">MÓDULO 2.1</span>
+          <h2 class="glitch" data-text="Estructura y sintaxis">Estructura y sintaxis</h2>
+          <p>Una regla CSS responde tres preguntas: <b>a quién</b> se aplica (selector), <b>qué</b> cambia (propiedad) y <b>cómo</b> cambia (valor). Pasa el cursor por el código para ver cada pieza.</p>
+        </header>
+
+        <div class="two">
+          <div class="panel reveal">
+            <h3 class="ptitle">Anatomía de una regla</h3>
+            <pre class="anat" id="anat"><span class="tk" data-i="comment">/* esto es un comentario */</span>
+<span class="tk" data-i="sel">.panel</span> <span class="tk" data-i="brace">{</span>
+  <span class="tk" data-i="prop">color</span><span class="tk" data-i="colon">:</span> <span class="tk" data-i="val">gold</span><span class="tk" data-i="semi">;</span>
+  <span class="tk" data-i="prop">padding</span><span class="tk" data-i="colon">:</span> <span class="tk" data-i="val">1rem 2rem</span><span class="tk" data-i="semi">;</span>
+<span class="tk" data-i="brace">}</span></pre>
+            <div class="info" id="anatInfo">
+              <strong>Pasa el cursor por el código</strong>
+              <span>Cada color es una parte distinta de la sintaxis.</span>
+            </div>
+            <p class="note">Una <em>declaración</em> es la pareja <code>propiedad: valor;</code>. Un bloque puede tener todas las que necesite.</p>
+          </div>
+
+          <div class="panel reveal">
+            <h3 class="ptitle">Laboratorio</h3>
+            <div class="preview"><div class="syn-target" id="synTarget">NÚCLEO ACTIVO</div></div>
+            <div class="chips" id="synColors">
+              <button class="chip on" data-c="#ffc43d" style="--c:#ffc43d">oro</button>
+              <button class="chip" data-c="#ff4b3e" style="--c:#ff4b3e">rojo</button>
+              <button class="chip" data-c="#58e6ff" style="--c:#58e6ff">cian</button>
+              <button class="chip" data-c="#ffffff" style="--c:#ffffff">blanco</button>
+            </div>
+            <label class="rng">font-size <output id="oSize">24px</output><input type="range" id="rSize" min="14" max="40" value="24"></label>
+            <label class="rng">border-radius <output id="oRad">6px</output><input type="range" id="rRad" min="0" max="40" value="6"></label>
+            <label class="rng">letter-spacing <output id="oLs">2px</output><input type="range" id="rLs" min="0" max="10" value="2"></label>
+            <pre class="code" id="synCode"></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============== 2.2 =============== -->
+    <section class="mod alt" id="m22">
+      <div class="bg-num" data-speed="0.18">2.2</div>
+      <div class="wrap">
+        <header class="mod-head reveal">
+          <span class="tag">MÓDULO 2.2</span>
+          <h2 class="glitch" data-text="Tipos de incorporación">Tipos de incorporación</h2>
+          <p>Hay tres formas de conectar CSS con HTML: <b>interno</b>, <b>externo</b> y <b>en línea</b>. Elige una pestaña para ver el código y cuándo conviene.</p>
+        </header>
+
+        <div class="panel reveal">
+          <div class="tabs" id="incTabs" role="tablist">
+            <button class="tab on" data-pane="p-interno" data-src="interno" role="tab">Interno</button>
+            <button class="tab" data-pane="p-externo" data-src="externo" role="tab">Externo</button>
+            <button class="tab" data-pane="p-linea" data-src="linea" role="tab">En línea</button>
+          </div>
+
+          <div class="two inc">
+            <div class="panes">
+              <div class="pane on" id="p-interno">
+                <pre class="code" data-lang="html">&lt;head&gt;
+  &lt;style&gt;
+    .boton {
+      background: #e4262c;
+      color: white;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;</pre>
+                <ul class="pc">
+                  <li class="ok">Todo en un solo archivo: práctico para pruebas rápidas.</li>
+                  <li class="ok">Va dentro de <code>&lt;style&gt;</code>, normalmente en el <code>&lt;head&gt;</code>.</li>
+                  <li class="no">No se reutiliza en otras páginas.</li>
+                </ul>
+              </div>
+              <div class="pane" id="p-externo">
+                <pre class="code" data-lang="html">&lt;head&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+
+/* styles.css */
+.boton {
+  background: #e4262c;
+  color: white;
+}</pre>
+                <ul class="pc">
+                  <li class="ok">Un archivo <code>.css</code> sirve para muchas páginas.</li>
+                  <li class="ok">El navegador lo guarda en caché y carga más rápido.</li>
+                  <li class="ok">Es la forma recomendada en proyectos reales.</li>
+                </ul>
+              </div>
+              <div class="pane" id="p-linea">
+                <pre class="code" data-lang="html">&lt;button class="boton"
+  style="background:#e4262c; color:white;"&gt;
+  Activar
+&lt;/button&gt;</pre>
+                <ul class="pc">
+                  <li class="ok">Se aplica a un solo elemento, sin selector.</li>
+                  <li class="no">Mezcla contenido con estilo y es difícil de mantener.</li>
+                  <li class="no">Tiene mucha especificidad: cuesta sobrescribirlo.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="inc-side">
+              <div class="inc-target" id="incTarget" data-src="interno">
+                <span class="lbl">Estilo cargado desde</span>
+                <strong id="incLabel">&lt;style&gt; interno</strong>
+              </div>
+              <p class="note">Si dos reglas tienen el mismo peso, gana la que aparece <b>más abajo</b> en el código. Por eso el orden de los <code>&lt;link&gt;</code> importa.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============== 2.3 =============== -->
+    <section class="mod" id="m23">
+      <div class="bg-num" data-speed="0.18">2.3</div>
+      <div class="wrap">
+        <header class="mod-head reveal">
+          <span class="tag">MÓDULO 2.3</span>
+          <h2 class="glitch" data-text="Identación, herencia y comentarios">Identación, herencia y comentarios</h2>
+          <p>Tres hábitos que separan un código que se lee bien de uno que nadie quiere tocar.</p>
+        </header>
+
+        <div class="panel reveal">
+          <h3 class="ptitle">Identación: el mismo código, dos estilos</h3>
+          <div class="two">
+            <div>
+              <span class="badge no">✗ sin orden</span>
+              <pre class="code" data-lang="css">.panel{color:gold;padding:1rem;
+border:1px solid red}
+.panel a{color:white;
+text-decoration:none}</pre>
+            </div>
+            <div>
+              <span class="badge ok">✓ con identación</span>
+              <pre class="code" data-lang="css">.panel {
+  color: gold;
+  padding: 1rem;
+  border: 1px solid red;
+}
+
+.panel a {
+  color: white;
+  text-decoration: none;
+}</pre>
+            </div>
+          </div>
+          <p class="note">Una propiedad por línea, dos espacios por nivel y una línea en blanco entre reglas. Los errores saltan a la vista.</p>
+        </div>
+
+        <div class="two">
+          <div class="panel reveal">
+            <h3 class="ptitle">Herencia</h3>
+            <p class="note top">Algunas propiedades pasan de padre a hijo solas; otras no. Cambia el padre y observa.</p>
+            <div class="inh-parent" id="inhP">
+              <span>.padre</span>
+              <div class="inh-child">
+                <span>.hijo</span>
+                <div class="inh-grand"><span>.nieto</span></div>
+              </div>
+            </div>
+            <div class="chips" id="inhColors">
+              <button class="chip on" data-c="#ffc43d" style="--c:#ffc43d">oro</button>
+              <button class="chip" data-c="#ff4b3e" style="--c:#ff4b3e">rojo</button>
+              <button class="chip" data-c="#58e6ff" style="--c:#58e6ff">cian</button>
+            </div>
+            <label class="rng">font-size del padre <output id="oInh">18px</output><input type="range" id="rInh" min="12" max="28" value="18"></label>
+            <label class="chk"><input type="checkbox" id="inhBorder"> border en el padre</label>
+            <ul class="inh-list" id="inhList"></ul>
+            <pre class="code" id="inhCode"></pre>
+          </div>
+
+          <div class="panel reveal">
+            <h3 class="ptitle">Comentarios</h3>
+            <p class="note top">Los comentarios <code>/* … */</code> no se ejecutan. Sirven para explicar o para apagar una línea sin borrarla. <b>Haz clic en una línea.</b></p>
+            <div class="preview tall"><div class="nucleo" id="nucleo"></div></div>
+            <div class="clines" id="clines">
+              <div class="cline" tabindex="0" role="button" data-css="background:#e4262c">  background: #e4262c;</div>
+              <div class="cline" tabindex="0" role="button" data-css="box-shadow:0 0 34px #e4262c">  box-shadow: 0 0 34px #e4262c;</div>
+              <div class="cline" tabindex="0" role="button" data-css="border-radius:50%">  border-radius: 50%;</div>
+              <div class="cline" tabindex="0" role="button" data-css="transform:rotate(45deg)">  transform: rotate(45deg);</div>
+            </div>
+            <p class="mini">Atajo en editores: <code>Ctrl + /</code> comenta o descomenta la línea.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============== 2.4 =============== -->
+    <section class="mod alt" id="m24">
+      <div class="bg-num" data-speed="0.18">2.4</div>
+      <div class="wrap">
+        <header class="mod-head reveal">
+          <span class="tag">MÓDULO 2.4</span>
+          <h2 class="glitch" data-text="Niveles de especificidad">Niveles de especificidad</h2>
+          <p>Cuando dos reglas apuntan al mismo elemento, el navegador compara su <b>peso</b>. Se cuenta en cuatro columnas y se comparan de izquierda a derecha.</p>
+        </header>
+
+        <div class="panel reveal">
+          <h3 class="ptitle">La escalera de peso</h3>
+          <div class="ladder">
+            <div class="step" style="--w:100%"><b>1 · 0 · 0 · 0</b><span>Estilo en línea <code>style="…"</code></span></div>
+            <div class="step" style="--w:76%"><b>0 · 1 · 0 · 0</b><span>Id <code>#menu</code></span></div>
+            <div class="step" style="--w:52%"><b>0 · 0 · 1 · 0</b><span>Clase, atributo, pseudo-clase <code>.item</code> <code>[href]</code> <code>:hover</code></span></div>
+            <div class="step" style="--w:28%"><b>0 · 0 · 0 · 1</b><span>Etiqueta y pseudo-elemento <code>p</code> <code>::before</code></span></div>
+          </div>
+          <p class="note"><code>!important</code> salta toda la escalera, por eso es mejor no abusar de él. Un <code>*</code> no suma nada.</p>
+        </div>
+
+        <div class="two">
+          <div class="panel reveal">
+            <h3 class="ptitle">Calculadora</h3>
+            <input class="field" id="specIn" type="text" value="#menu .item:hover > a::before" spellcheck="false" autocomplete="off">
+            <div class="chips" id="specPresets">
+              <button class="chip" data-s="p">p</button>
+              <button class="chip" data-s=".item">.item</button>
+              <button class="chip" data-s="ul li:nth-child(2) a[href]">ul li:nth-child(2) a[href]</button>
+              <button class="chip" data-s="#menu .item:hover > a::before">ejemplo completo</button>
+            </div>
+            <div class="wcells" id="wcells">
+              <div class="wcell"><b>0</b><span>en línea</span></div>
+              <div class="wcell"><b>0</b><span>ids</span></div>
+              <div class="wcell"><b>0</b><span>clases</span></div>
+              <div class="wcell"><b>0</b><span>etiquetas</span></div>
+            </div>
+            <p class="note" id="specNote"></p>
+          </div>
+
+          <div class="panel reveal">
+            <h3 class="ptitle">Batalla de reglas</h3>
+            <p class="note top">Activa varias reglas sobre el mismo texto, cada una con su propio color. Gana la de más peso.</p>
+            <div class="arena" id="battleArena"><arena-p class="b-armor" id="b-reactor">Texto objetivo</arena-p></div>
+            <div class="rules" id="ruleList"></div>
+            <div class="verdict" id="verdict"></div>
+            <p class="mini">En esta demo usamos un elemento propio para no afectar al resto de la página; las reglas funcionan igual que con <code>p</code>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============== 2.5 =============== -->
+    <section class="mod" id="m25">
+      <div class="bg-num" data-speed="0.18">2.5</div>
+      <div class="wrap">
+        <header class="mod-head reveal">
+          <span class="tag">MÓDULO 2.5</span>
+          <h2 class="glitch" data-text="Flexbox, Grid y Breakpoints">Flexbox, Grid y Breakpoints</h2>
+          <p><b>Flexbox</b> ordena en una dirección; <b>Grid</b> en filas y columnas a la vez. Un <b>breakpoint</b> es el ancho donde el diseño cambia. Cambia de sistema y arrastra el ancho de la pantalla.</p>
+        </header>
+
+        <div class="panel reveal">
+          <div class="bp-top">
+            <div class="chips" id="bpMode">
+              <button class="chip on" data-m="flex">Flexbox</button>
+              <button class="chip" data-m="grid">Grid</button>
+            </div>
+            <div class="bp-badge" id="bpBadge">escritorio</div>
+          </div>
+
+          <label class="rng">ancho de la pantalla simulada <output id="oBp">900px</output>
+            <input type="range" id="rBp" min="320" max="1100" value="900">
+          </label>
+          <div class="bp-ruler" id="bpRuler"><i data-bp="520"><em>520</em></i><i data-bp="800"><em>800</em></i></div>
+
+          <div class="bp-stage">
+            <div class="screen" id="bpScreen">
+              <div class="cards" id="bpCards">
+                <div class="c"><b>01</b>Escudo</div>
+                <div class="c"><b>02</b>Propulsión</div>
+                <div class="c"><b>03</b>Radar</div>
+                <div class="c"><b>04</b>Energía</div>
+                <div class="c"><b>05</b>Armas</div>
+                <div class="c"><b>06</b>Enlace</div>
+              </div>
+            </div>
+          </div>
+
+          <pre class="code" id="bpCode"></pre>
+          <p class="note">La pantalla simulada usa <code>@container</code> para reaccionar a su propio ancho. En una página real escribes lo mismo con <code>@media (min-width: …)</code>, como en el código de arriba.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============== 2.6 =============== -->
+    <section class="mod alt" id="m26">
+      <div class="bg-num" data-speed="0.18">2.6</div>
+      <div class="wrap">
+        <header class="mod-head reveal">
+          <span class="tag">MÓDULO 2.6</span>
+          <h2 class="glitch" data-text="Media queries">Media queries</h2>
+          <p>Una media query es un <b>if</b> de CSS: las reglas de dentro solo se aplican si la condición se cumple. Cambia el tamaño de la ventana y mira el radar.</p>
+        </header>
+
+        <div class="two">
+          <div class="panel reveal">
+            <h3 class="ptitle">Sintaxis</h3>
+            <pre class="code" data-lang="css">/* móvil primero */
+.menu { display: none; }
+
+@media (min-width: 768px) {
+  .menu { display: flex; }
+}
+
+/* combinando condiciones */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .tarjeta { width: 50%; }
+}
+
+/* preferencias del usuario */
+@media (prefers-color-scheme: dark) {
+  body { background: #000; }
+}</pre>
+            <p class="note"><b>Mobile first</b> usa <code>min-width</code> y va sumando reglas; <b>desktop first</b> usa <code>max-width</code> y las va quitando.</p>
+          </div>
+
+          <div class="panel reveal">
+            <h3 class="ptitle">Radar de condiciones</h3>
+            <div class="mq-size"><span id="mqW">0</span> × <span id="mqH">0</span> px</div>
+            <ul class="radar" id="radar"></ul>
+            <div class="mq-bar" id="mqBar"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============== 2.7 =============== -->
+    <section class="mod" id="m27">
+      <div class="bg-num" data-speed="0.18">2.7</div>
+      <div class="wrap">
+        <header class="mod-head reveal">
+          <span class="tag">MÓDULO 2.7</span>
+          <h2 class="glitch" data-text="Pseudo-elementos">Pseudo-elementos</h2>
+          <p>Con doble dos puntos <code>::</code> estilizas una <b>parte</b> de un elemento, o creas contenido decorativo sin tocar el HTML.</p>
+        </header>
+
+        <div class="three">
+          <article class="card reveal">
+            <h3 class="ctitle">::before y ::after</h3>
+            <div class="demo"><span class="pe-status">SISTEMA</span></div>
+            <pre class="code">.estado::before { content: "● "; }
+.estado::after  { content: " // OK"; }</pre>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="ctitle">::first-letter</h3>
+            <div class="demo"><p class="pe-first">La primera letra de este párrafo se agranda como en una revista antigua.</p></div>
+            <pre class="code">p::first-letter {
+  font-size: 3rem;
+  float: left;
+  color: red;
+}</pre>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="ctitle">::first-line</h3>
+            <div class="demo"><p class="pe-line">Solo la primera línea cambia de estilo; si cambias el ancho de la ventana, el cambio se adapta al texto que quepa en ella.</p></div>
+            <pre class="code">p::first-line {
+  color: gold;
+  text-transform: uppercase;
+}</pre>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="ctitle">::selection</h3>
+            <div class="demo"><p class="pe-sel">Selecciona este texto con el mouse para ver el nuevo color de selección.</p></div>
+            <pre class="code">p::selection {
+  background: red;
+  color: white;
+}</pre>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="ctitle">::placeholder</h3>
+            <div class="demo"><input class="pe-input" type="text" placeholder="CÓDIGO DE ACCESO"></div>
+            <pre class="code">input::placeholder {
+  color: gold;
+  letter-spacing: .2em;
+}</pre>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="ctitle">::marker</h3>
+            <div class="demo"><ul class="pe-list"><li>Reactor</li><li>Escudo</li><li>Radar</li></ul></div>
+            <pre class="code">li::marker {
+  content: "▸ ";
+  color: red;
+}</pre>
+          </article>
+        </div>
+
+        <article class="card wide reveal">
+          <h3 class="ctitle">Truco con ::after: un barrido de luz</h3>
+          <div class="demo"><div class="pe-scan">Pasa el cursor por aquí</div></div>
+          <pre class="code">.boton { position: relative; overflow: hidden; }
+.boton::after {
+  content: "";
+  position: absolute;
+  left: -60%;
+  transition: left .8s;
+}
+.boton:hover::after { left: 130%; }</pre>
+        </article>
+      </div>
+    </section>
+
+    <!-- =============== 2.8 =============== -->
+    <section class="mod alt" id="m28">
+      <div class="bg-num" data-speed="0.18">2.8</div>
+      <div class="wrap">
+        <header class="mod-head reveal">
+          <span class="tag">MÓDULO 2.8</span>
+          <h2 class="glitch" data-text="Pseudo-clases">Pseudo-clases</h2>
+          <p>Con un solo <code>:</code> eliges un elemento según su <b>estado</b> (si lo tocas, si está marcado) o su <b>posición</b> (el tercero, el último).</p>
+        </header>
+
+        <div class="three">
+          <article class="card reveal">
+            <h3 class="ctitle">:hover · :active · :focus-visible</h3>
+            <div class="demo"><button class="pc-btn">Activar</button></div>
+            <pre class="code">.btn:hover   { background: gold; }
+.btn:active  { transform: scale(.94); }
+.btn:focus-visible { outline: 2px solid cyan; }</pre>
+            <p class="mini">Prueba también con la tecla Tab.</p>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="ctitle">:focus-within</h3>
+            <div class="demo">
+              <div class="pc-field">
+                <label for="pcName">Piloto</label>
+                <input id="pcName" type="text" placeholder="escribe aquí">
+              </div>
+            </div>
+            <pre class="code">.campo:focus-within {
+  border-color: gold;
+}
+.campo:focus-within label { color: gold; }</pre>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="ctitle">:checked</h3>
+            <div class="demo">
+              <div class="sw-wrap">
+                <input class="sw" type="checkbox" id="swA">
+                <label class="sw-track" for="swA"></label>
+                <span class="sw-text"></span>
+              </div>
+            </div>
+            <pre class="code">.sw:checked + .pista {
+  background: red;
+}
+.sw:checked ~ .texto::after {
+  content: "ACTIVADO";
+}</pre>
+          </article>
+
+          <article class="card reveal">
+            <h3 class="ctitle">:valid · :invalid</h3>
+            <div class="demo">
+              <div class="pc-mail">
+                <input type="email" required placeholder="correo@dominio.com">
+                <span class="msg"></span>
+              </div>
+            </div>
+            <pre class="code">input:valid   { border-color: lime; }
+input:invalid { border-color: red; }</pre>
+          </article>
+
+          <article class="card span2 reveal">
+            <h3 class="ctitle">:nth-child · :first-child · :last-child · :not()</h3>
+            <div class="demo col">
+              <ul class="nth" id="nthList">
+                <li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li>
+              </ul>
+              <div class="chips" id="nthChips">
+                <button class="chip on" data-s=":nth-child(odd)">odd</button>
+                <button class="chip" data-s=":nth-child(even)">even</button>
+                <button class="chip" data-s=":nth-child(3n)">3n</button>
+                <button class="chip" data-s=":first-child">:first-child</button>
+                <button class="chip" data-s=":last-child">:last-child</button>
+                <button class="chip" data-s=":not(:last-child)">:not(:last-child)</button>
+              </div>
+            </div>
+            <pre class="code" id="nthCode"></pre>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============== 2.9 =============== -->
+    <section class="mod" id="m29">
+      <div class="bg-num" data-speed="0.18">2.9</div>
+      <div class="wrap">
+        <header class="mod-head reveal">
+          <span class="tag">MÓDULO 2.9</span>
+          <h2 class="glitch" data-text="Z-index">Z-index</h2>
+          <p><code>z-index</code> decide quién queda <b>encima</b> cuando los elementos se superponen. Solo funciona en elementos con <code>position</code> distinto de <code>static</code>, y dentro de su propio <b>contexto de apilamiento</b>.</p>
+        </header>
+
+        <div class="panel reveal">
+          <div class="two">
+            <div class="zstage" id="zStage">
+              <div class="zc" id="zA"><b>A</b><span id="zAl">z-index: 1</span></div>
+              <div class="zc" id="zC"><b>C</b><span id="zCl">z-index: 2</span></div>
+              <div class="zwrap" id="zWrap">
+                <div class="zc" id="zB"><b>B</b><span>z-index: 99</span></div>
+              </div>
+            </div>
+
+            <div class="zctl">
+              <label class="rng">z-index de A <output id="oZa">1</output><input type="range" id="rZa" min="-2" max="10" value="1"></label>
+              <label class="rng">z-index de C <output id="oZc">2</output><input type="range" id="rZc" min="-2" max="10" value="2"></label>
+              <label class="chk"><input type="checkbox" id="zCtx"> el contenedor de B crea un contexto de apilamiento</label>
+              <pre class="code" id="zCode"></pre>
+              <p class="note" id="zNote"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============== CIERRE =============== -->
+    <section class="outro" id="fin">
+      <div class="outro-bg" data-speed="0.25"></div>
+      <div class="wrap">
+        <div class="reveal">
+          <h2 class="glitch big" data-text="Secuencia completa">Secuencia completa</h2>
+          <p class="lead">Nueve módulos, un mismo objetivo: que el navegador entienda cómo quieres que se vea y se comporte tu página.</p>
+          <div class="sum">
+            <a href="#m21"><b>2.1</b>regla = selector + declaraciones</a>
+            <a href="#m22"><b>2.2</b>externo para proyectos reales</a>
+            <a href="#m23"><b>2.3</b>ordena, hereda, comenta</a>
+            <a href="#m24"><b>2.4</b>id &gt; clase &gt; etiqueta</a>
+            <a href="#m25"><b>2.5</b>flex en línea, grid en cuadrícula</a>
+            <a href="#m26"><b>2.6</b>@media: reglas con condición</a>
+            <a href="#m27"><b>2.7</b>:: para partes y decoración</a>
+            <a href="#m28"><b>2.8</b>: para estados y posiciones</a>
+            <a href="#m29"><b>2.9</b>capas con position + z-index</a>
+          </div>
+          <a href="#inicio" class="back">↑ reiniciar sistema</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>Protocolo CSS · Módulo 02 · hecho con HTML, CSS y JavaScript</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
